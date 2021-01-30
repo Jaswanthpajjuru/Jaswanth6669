@@ -4,10 +4,6 @@
 OpenLANE is a computerized RTL to GDSII stream dependent on a few segments including OpenROAD, Yosys, Magic, Netgen, Fault, OpenPhySyn, SPEF-Extractor and custom philosophy contents for plan investigation and streamlining. It is an instrument begun for genuine open source tape-out experience and accompanies APACHE version 2.0 . The objective of OpenLANE is to create clean GDSII with no human intercession. OpenLANE is tuned for Skywater 130nm open-source PDK and can be utilized to create hard macros and chips.
 # Architecture of a chip
 Chip is focused in the package.package and chip are associated by wires with the goal that they can impart the signs in and out.The bundles has PADS:these cushions are utilized to impart signs all through the chip.The size of the bundle is given the size of the die.A center comprises of foundary IP's and macros.
-
-MACROS(Digital blocks are called as macros) eg:Socs,SP1
-
-FOUNDARY IP's(these are manufactured at foundary where all these are manufactured) eg: PLL,adc0,ac1,dac,SRAM
 ![Screenshot_2021-01-30-10-22-41-409_com android chrome (2)](https://user-images.githubusercontent.com/78246315/106347686-a11d8a80-62e6-11eb-9543-7e6cee9f3c1a.jpg)
 # Physical Design Flow
 ## RTL TO GDS FLOW (Physical Flow)
@@ -34,7 +30,7 @@ Detect the standard cells on the floorplane lines, agreed with objections portra
 Clock tree amalgamation is used to make the clock course network that is used to pass on the clock to each continuous segment. The guideline objective is to make an association with unimportant inclination across the chip. H-trees are a commonplace association geology that is used to achieve this target.
 ### Routing
 Executes the interconnect structure between standard cells using the extra open metal layers after CTS and PDN age. The guiding is performed on guiding frameworks to ensure unimportant DRC botches.
-
+![Screenshot_2021-01-30-20-03-22-686_com android chrome (2)](https://user-images.githubusercontent.com/78246315/106359101-6a6f6080-6336-11eb-9c02-027cd5d297fa.jpg)
 ## INTRODUCTION TO OPENLANE
 Process Design Kit (PDK) is the interface between the CAD fashioners and the foundry. The PDK is an assortment of documents used to demonstrate a manufacture cycle for the EDA devices utilized in planning an IC. PDK's are customarily shut source and henceforth are the restricting component to open-source Digital ASIC Design. Google and Skywater have broken this disgrace and distributed the world's first open-source PDK on June 30th, 2020. This advancement has been an impetus for open-source EDA apparatuses. This workshop centers around utilizing the open-source RTL2GDS EDA apparatus, OpenLANE, related to the Skywater 130nm PDK to play out the full RTL2GDS stream as demonstrated below
 
