@@ -167,7 +167,9 @@ Refer: https://github.com/nickson-jose/vsdstdcelldesign for cells
 ## PEX EXTRACTION WITH MAGIC
 ![Screenshot_2021-01-30-18-50-44-277_com android chrome (2)](https://user-images.githubusercontent.com/78246315/106357507-7bb36f80-632c-11eb-97ca-0820579e1020.jpg)
 
-After ngspice simulation we get the output given below
+After ngspice simulation 
+![IMG-20210127-WA0006 (2)](https://user-images.githubusercontent.com/78246315/106358419-0a76bb00-6332-11eb-9a8e-b62b9c7c6b05.jpg)
+we get the output given below
 ![Screenshot_2021-01-30-18-58-03-051_com android chrome (2)](https://user-images.githubusercontent.com/78246315/106357668-828eb200-632d-11eb-98b4-9befe588f5aa.jpg)
 Plotting the output vs time while sweeping input
 ![Screenshot_2021-01-30-18-58-03-051_com android chrome (3)](https://user-images.githubusercontent.com/78246315/106357681-93d7be80-632d-11eb-8290-7984a820eb2a.jpg)
@@ -189,6 +191,59 @@ we can ensure that our pin placement is optimized for PnR flow
 ## LEF generation in magic
 Magic allows to generate the cell LEF which takes information directly from magic teriminal
 ![Screenshot_2021-01-30-19-06-02-660_com android chrome (4)](https://user-images.githubusercontent.com/78246315/106358096-05b10780-6330-11eb-905c-a097cab00d49.jpg)
+
+### Generated cell LEF
+![Screenshot_2021-01-30-19-06-07-412_com android chrome (2)](https://user-images.githubusercontent.com/78246315/106358180-6f311600-6330-11eb-9a02-b43b475ff7d0.jpg)
+To include newcells in openlane we need to do initial configuration
+
+1.Fully characterize new cell with GUNA for specified corners
+2.Include cell level liberty file in top level liberty file 
+3.Reconfigure synthesis switches in the config.tcl file 
+4.Overwrite previous run to include new configuration switches
+5.Add additional statements to include extra cell LEFs
+6.Check synthesis logs to ensure cell has been integrated correctl
+![IMG-20210127-WA0022 (2)](https://user-images.githubusercontent.com/78246315/106358258-1b72fc80-6331-11eb-9d7f-f3d3b93bd04a.jpg)
+## CLOCK TREE SYNTHESIS
+By completing the floorplan and standard cell placement in Open LANE .We insert the clock tree for sequential elements in this design. The main concerns regarding the generation of the clock tree are the two which are mentioned below 
+1.Clock skew - Difference in arrival times of the clock for sequential elements across the design.
+2.Delta delay - Skew introduced through capacitive coupling of the clock tree nets run clock tree synthesis in OpenLANE
+![Screenshot_2021-01-30-19-06-10-706_com android chrome (2)](https://user-images.githubusercontent.com/78246315/106358604-3f374200-6333-11eb-9c26-ec6ee61b7cf8.jpg)
+## Post CTS - STA Analsys
+### Invoking openroad from openlane
+ Timinig analysis is done by creating .db database file. The database file is created from the post-cts LEF and DEF files. 
+ To generate the .db files within Openroad.
+ ![Screenshot_2021-01-30-19-06-10-706_com android chrome (3)](https://user-images.githubusercontent.com/78246315/106358618-5f670100-6333-11eb-8816-ac2417bdea96.jpg)
+ # Workshop day5 
+ ## Final steps in RTL - GDSII
+After generating our clock tree network and verifying post routing STA checks . Now we are ready to generate the power distribution network in OpenLANE.
+![Screenshot_2021-01-30-19-06-13-382_com android chrome (2)](https://user-images.githubusercontent.com/78246315/106358775-3eeb7680-6334-11eb-9779-2e15f2dc6bd0.jpg)
+### The PDN feature in OPENLANE creates:
+1.Power ring global to the entire core.
+2.Power halo local to any preplaced cells.
+3.Power straps to bring power into the center of the chip.
+4.Power rails for the standard cells.
+![Screenshot_2021-01-30-19-06-13-382_com android chrome (3)](https://user-images.githubusercontent.com/78246315/106358785-50348300-6334-11eb-92e0-f8632a115e2b.jpg)
+## Routing 
+### Global and Detailed Routing
+OpenLANE uses TritonRoute as the routing tool for implementation of designs.
+
+Routing consists of 2stages thay are,
+1.Global Routing - Routing guide is generated for interconnects on our netlist defining what layers on the chip each of the nets will be reputed.
+2.Detailed Routing - Metal traces are iteratively laid across the routing guides to physically implement the routing guides.
+![Screenshot_2021-01-30-19-06-16-846_com android chrome (2)](https://user-images.githubusercontent.com/78246315/106358838-a9041b80-6334-11eb-9518-c3fdcf559ea9.jpg)
+### In case of DRC errors persist after routing the user has two options:
+   1.Re-run routing with higher QoR settings.
+   2.Manually fix DRC errors specific in tritonRoute.drc file.
+## SPEF EXTRACTION
+After routing competion interconnect parasitics are extracted to perform sign-off post-route STA analysis.Finally the parasitics are extracted into a SPEF file.
+## Acknowledgements
+@ Nickson Jose - VSD VLSI Engineer @ Kunal Ghosh - Co-founder (VSD Corp. Pvt. Ltd) @ Praharsha
+
+ 
+
+
+
+
 
 
 
